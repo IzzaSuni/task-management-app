@@ -1,1 +1,1 @@
-export const HOME_ROUTES = "/";
+export const ROUTE = "/:project_name?";

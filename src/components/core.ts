@@ -25,6 +25,8 @@ import {
   ShadowProps,
   fontWeight,
 } from "styled-system";
+import BaseMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import { CSSObject, styled } from "styled-components";
 
@@ -67,30 +69,55 @@ export default function element<T extends keyof JSX.IntrinsicElements>(
   `;
 }
 
-export const Box = styled(element("div"))``;
+export const TextField = styled(element("input"))`
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
 
-export const FlexBox = styled(Box)({ display: "flex" });
+  &:focus-visible {
+    outline: none;
+  }
+`;
+export const Img = styled(element("img"))``;
+export const Box = styled(element("div"))`
+  box-sizing: border-box;
+`;
+
+export const FlexBox = styled(Box)(({ gap }) => ({
+  display: "flex",
+  gap: gap ? gap * 4 + "px" : 0,
+}));
+
+export const EllipsisContainer = styled(FlexBox)`
+  overflow: hidden;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
 export const Text = styled(element("p"))`
   color: ${({ theme, color }) => color ?? theme.colors.text};
 `;
 
 export const StyledButton = styled(element("button"))<StyledSystemProps>`
   height: fit-content;
-  background: ${({ background }) => background ?? "#a6cfd5"};
+  background: ${({ background }) => background ?? "transparent"};
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 8px;
+  border: ${({ border }) => border ?? "none"};
   cursor: pointer;
-  transition: all 0.3s ease;
+  gap: ${({ gap }) => (gap ? gap * 4 + "px" : 0)};
+`;
 
-  &:hover {
-    background: #4f6fcf;
-
-    p {
-      color: white !important;
-    }
+export const Markdown = styled(BaseMarkdown).attrs(() => ({
+  remarkPlugins: [remarkGfm],
+}))`
+  * {
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

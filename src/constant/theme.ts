@@ -4,6 +4,7 @@ export const theme = {
   colors: {
     dark: {
       background: "#3E3232",
+      backgroundFaded: "#F5EEE61a",
       primary: "#503C3C",
       secondary: "#7E6363",
       border: "#A87C7C",
@@ -11,6 +12,7 @@ export const theme = {
     },
     light: {
       background: "#F5EEE6",
+      backgroundFaded: "#3E32321a",
       primary: "#FFF8E3",
       secondary: "#F3D7CA",
       border: "#E6A4B4",
@@ -22,15 +24,18 @@ export const theme = {
     xs: 12,
     s: 14,
     m: 16,
-    xm: 18,
-    l: 20,
-    xl: 24,
+    xm: 20,
+    l: 24,
+    xl: 28,
+    xxl: 32,
+    xxxl: 40,
   },
   spacing: {
-    s: 4,
-    m: 8,
-    xm: 16,
-    l: 32,
+    s: 1,
+    m: 2,
+    xm: 3,
+    l: 4,
+    xl: 6,
   },
   breakpoints: ["640px", "768px", "1024px"],
 };
