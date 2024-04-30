@@ -17,6 +17,25 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      includeAssets: ["v-task-logo.svg"],
+      manifest: {
+        name: "V-Task Manager",
+        short_name: "V-Task",
+        description: "Simple app to managing task",
+        theme_color: "#F5EEE6",
+        icons: [
+          {
+            src: "v-task-logo.svg",
+            sizes: "192x192",
+            type: "image/svg",
+          },
+          {
+            src: "v-task-logo.svg",
+            sizes: "512x512",
+            type: "image/svg",
+          },
+        ],
+      },
     }),
   ],
 
