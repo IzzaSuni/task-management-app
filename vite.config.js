@@ -25,14 +25,28 @@ export default defineConfig({
         theme_color: "#F5EEE6",
         icons: [
           {
-            src: "v-task-logo.svg",
-            sizes: "192x192",
-            type: "image/svg",
+            src: "/v-task-logo-small.png",
+            sizes: "144x144",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            src: "v-task-logo.svg",
+            src: "/v-task-logo-medium.png",
             sizes: "512x512",
-            type: "image/svg",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/v-task-logo-medium.png",
+            sizes: "72x72",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/v-task-logo-medium.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
           },
         ],
       },
