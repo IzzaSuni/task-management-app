@@ -18,6 +18,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 1;
 }
 
+input {
+  outline: none !important;
+}
+
 body {
   margin: 0;
 }

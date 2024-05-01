@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { Box } from "./components/core";
+import { theme } from "./constant/theme";
 
 export const Wrapper = styled(Box)`
   svg {

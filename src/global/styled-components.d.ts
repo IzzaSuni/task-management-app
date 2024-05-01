@@ -40,7 +40,7 @@ type ThemeType = {
     l: number;
     xl: number;
   };
-  breakpoints: [string, string, number];
+  breakpoints: [number, number, number];
 };
 
 declare module "styled-components" {

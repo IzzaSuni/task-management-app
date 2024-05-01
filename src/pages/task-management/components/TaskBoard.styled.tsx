@@ -1,18 +1,17 @@
 import { FlexBox, TextField } from "@/components/core";
 import styled from "styled-components";
-import SelectBase from "react-select";
 
 export const TaskContainer = styled(FlexBox)`
   .Task {
-    width: 50%;
+    width: -webkit-fill-available;
   }
 
-  .Due date {
-    width: 30%;
+  .Due-date {
+    width: calc(30% + 32px);
   }
 
   .Status {
-    width: 20%;
+    width: calc(20% + 32px);
   }
 `;
 

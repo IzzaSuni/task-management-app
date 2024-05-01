@@ -50,6 +50,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ["react-date-picker"],
+    exclude: ["react-device-detect"],
   },
 });

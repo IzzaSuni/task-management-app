@@ -6,10 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { generatePath, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import {
-  TaskStatuses,
-  taskAtom,
-} from "@/pages/task-management/components/TaskBoard";
+import { TaskStatuses } from "@/pages/task-management/components/TaskBoard";
+import { taskAtom } from "@/pages/task-management/hooks/useHandleTask";
 
 export type Project = {
   id?: string;
@@ -20,7 +18,8 @@ export type Project = {
 export const projectsAtom = atomWithStorage<Project[]>(
   KEY_STORAGE.PROJECTS_DATA,
   [],
-  createJSONStorage(() => localStorage)
+  createJSONStorage(() => localStorage),
+  { getOnInit: true }
 );
 
 export default function useHandleProjectForm(props?: Project) {
@@ -93,7 +92,7 @@ export default function useHandleProjectForm(props?: Project) {
         data: [
           {
             id: uuidv4(),
-            title: "",
+            title: "Write your task here",
             due_date: "",
             status: {
               value: TaskStatuses["not-started"],

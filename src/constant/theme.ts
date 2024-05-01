@@ -37,5 +37,5 @@ export const theme = {
     l: 4,
     xl: 6,
   },
-  breakpoints: ["640px", "768px", "1024px"],
+  breakpoints: [640, 768, 1024],
 };

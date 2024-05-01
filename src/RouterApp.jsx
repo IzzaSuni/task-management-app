@@ -6,13 +6,12 @@ import { ThemeProvider } from "styled-components";
 import useSelectTheme from "./hooks/useSelectTheme";
 import { GlobalStyle, Wrapper } from "./RouterApp.styled";
 import "@mdxeditor/editor/style.css";
-
-const RootPage = lazy(async () => await import("./pages/index"));
+import Root from "./pages";
 
 const router = createBrowserRouter([
   {
     path: ROUTE,
-    element: <RootPage />,
+    element: <Root />,
   },
 ]);
 

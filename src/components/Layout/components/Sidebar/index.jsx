@@ -16,6 +16,7 @@ export default function Sidebar() {
 
   return (
     <Box
+      zIndex={99999}
       width={280}
       background={theme.colors.background}
       borderRight={`1px solid ${theme.colors.border}`}
