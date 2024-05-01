@@ -7,6 +7,7 @@ import useSelectTheme from "./hooks/useSelectTheme";
 import { GlobalStyle, Wrapper } from "./RouterApp.styled";
 import "@mdxeditor/editor/style.css";
 import Root from "./pages";
+import { FlexBox, Text } from "./components/core";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,13 @@ export default function RouterApp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Suspense fallback={<>loading</>}>
+      <Suspense
+        fallback={
+          <FlexBox justifyContent={"center"} alignItems={"center"}>
+            <Text fontSize={theme.size.l}>loading</Text>
+          </FlexBox>
+        }
+      >
         <Wrapper>
           <GlobalStyle />
           <RouterProvider router={router} />

@@ -40,7 +40,12 @@ export default function Sidebar() {
         <Text fontWeight={600} mb={theme.spacing.xm}>
           Project List
         </Text>
-        <Button position={"relative"} onClick={() => handleShowSidebar()}>
+        <Button
+          position={"relative"}
+          onClick={() => handleShowSidebar()}
+          gap={theme.spacing.m}
+        >
+          <Text>hide </Text>
           <UilHorizontalAlignLeft size={theme.size.xm} />
         </Button>
       </FlexBox>
