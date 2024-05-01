@@ -24,6 +24,10 @@ export default function RouterApp() {
     background:${({ theme }) => theme.colors.background};
   }
 
+  .react-tooltip {
+    z-index:9999;
+  }
+
   * {
     transition: background 0.3s ease;
   }

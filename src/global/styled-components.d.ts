@@ -30,6 +30,8 @@ type ThemeType = {
     xm: number;
     l: number;
     xl: number;
+    xxl: number;
+    xxxl: number;
   };
   spacing: {
     s: number;

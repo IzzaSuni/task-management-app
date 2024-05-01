@@ -1,7 +1,7 @@
 import { Box, FlexBox, Img, StyledButton, Text } from "@components/core";
 import { useTheme } from "styled-components";
 import VTaskIcon from "@assets/v-task-logo.svg";
-import CreateProjectForm from "./components/CreateProjectForm";
+import ProjectForm from "./components/ProjectForm";
 import ProjectsList from "./components/ProjectsList";
 import { UilHorizontalAlignLeft } from "@iconscout/react-unicons";
 import useAnimateSidebar from "./hooks/useAnimateSidebar";
@@ -45,7 +45,7 @@ export default function Sidebar() {
       </FlexBox>
 
       <ProjectsList />
-      <CreateProjectForm />
+      <ProjectForm withButton />
     </Box>
   );
 }

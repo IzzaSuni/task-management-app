@@ -1,4 +1,4 @@
-import { projectsAtom } from "@/components/Layout/components/Sidebar/hooks/useCreateProject";
+import { projectsAtom } from "@/components/Layout/components/Sidebar/hooks/useHandleProjectForm";
 import { ROUTE } from "@/constant/routes";
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";

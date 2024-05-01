@@ -82,6 +82,7 @@ export const TextField = styled(element("input"))`
 export const Img = styled(element("img"))``;
 export const Box = styled(element("div"))`
   box-sizing: border-box;
+  gap: ${({ gap }) => (gap ? gap * 4 + "px" : 0)};
 `;
 
 export const FlexBox = styled(Box)(({ gap }) => ({
@@ -108,7 +109,7 @@ export const StyledButton = styled(element("button"))<StyledSystemProps>`
   background: ${({ background }) => background ?? "transparent"};
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${({ justifyContent }) => justifyContent ?? "center"};
   border: ${({ border }) => border ?? "none"};
   cursor: pointer;
   gap: ${({ gap }) => (gap ? gap * 4 + "px" : 0)};

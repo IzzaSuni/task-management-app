@@ -10,7 +10,10 @@ export enum ThemeSetting {
 
 export const themeSettingAtom = atomWithStorage<ThemeSetting>(
   KEY_STORAGE.THEME_PREFER,
-  ThemeSetting.light,
+
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? ThemeSetting.dark
+    : ThemeSetting.light,
   createJSONStorage(() => localStorage)
 );
 
@@ -32,18 +35,9 @@ export default function useSelectTheme() {
     },
   };
 
-  function getSystemTheme() {
-    setThemeSetting(
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? ThemeSetting.dark
-        : ThemeSetting.light
-    );
-  }
-
   return {
     themeSetting,
     setThemeSetting,
-    getSystemTheme,
     theme: { ...themes, colors },
   };
 }

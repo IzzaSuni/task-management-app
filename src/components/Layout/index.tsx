@@ -1,5 +1,5 @@
 import { useTheme } from "styled-components";
-import { Box, FlexBox, Markdown, Text } from "../core";
+import { Box, FlexBox, Text } from "../core";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import { ReactNode } from "react";
