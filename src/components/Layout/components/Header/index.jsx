@@ -23,8 +23,6 @@ export default function Header() {
       setPrompt(e);
     });
 
-    console.log(window.matchMedia("(display-mode: standalone)").matches);
-
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setIsInstalled(true);
     }

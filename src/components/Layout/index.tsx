@@ -20,8 +20,6 @@ export default function Layout({ children }: { children?: ReactNode }) {
 
   const { isDesktop } = useIsDesktop();
 
-  console.log(isDesktop);
-
   const params = useParams<{ project_id: string }>();
   const projects = useAtomValue(projectsAtom);
 
