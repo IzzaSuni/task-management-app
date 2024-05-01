@@ -14,18 +14,22 @@ import {
 import { useTheme } from "styled-components";
 import { useAtom } from "jotai";
 import { Container } from "./ProjectList.styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import useSelectTheme from "@/hooks/useSelectTheme";
 import { Project, projectsAtom } from "../hooks/useHandleProjectForm";
 import { useState } from "react";
 import ProjectForm from "./ProjectForm";
+import { useAnimate } from "framer-motion";
 
 type EditProjectTooltipProps = {
   onRename: () => void;
   onDelete: () => void;
 };
-function EditProjectTooltip({ onRename, onDelete }: EditProjectTooltipProps) {
+function EditProjectTooltip({
+  onRename,
+  onDelete,
+}: Readonly<EditProjectTooltipProps>) {
   const theme = useTheme();
   const { themeSetting } = useSelectTheme();
 
@@ -74,18 +78,27 @@ export default function ProjectsList() {
   const [isShowFormProject, setIsShowFormProject] = useState(false);
 
   const [projectsData, setProjectData] = useAtom(projectsAtom);
-
+  const [, animate] = useAnimate();
   const theme = useTheme();
+  const params = useParams<{ project_name: string }>();
   const navigate = useNavigate();
 
-  const resetSelectedProject = () => setSelectedProject(null);
+  const resetSelectedProject = () => {
+    setSelectedProject(null);
+    setIsShowFormProject(false);
+  };
 
-  console.log(selectedProject, isShowFormProject);
+  console.log(projectsData, selectedProject?.id, isShowFormProject);
 
   return (
     <FlexBox flexDirection={"column"} mb={theme.spacing.s}>
       {projectsData?.map((project) => (
-        <Container padding={theme.spacing.m} width={"100%"}>
+        <Container
+          key={project.id}
+          padding={theme.spacing.m}
+          width={"100%"}
+          isActive={params?.project_name === project.project_name}
+        >
           {selectedProject?.id === project?.id && isShowFormProject ? (
             <ProjectForm
               withButton
@@ -96,6 +109,7 @@ export default function ProjectsList() {
             />
           ) : (
             <FlexBox
+              id={`project-${project.id}`}
               width={"100%"}
               alignItems={"center"}
               justifyContent={"space-between"}
@@ -110,7 +124,7 @@ export default function ProjectsList() {
                 }}
               >
                 <UilSuitcase size={theme.size.m} />
-                <Text fontSize={theme.size.s}>{project?.project_name}</Text>
+                <Text fontSize={theme.size.s}>{project?.project_name}a</Text>
               </EllipsisContainer>
               <StyledButton
                 onClick={() => setSelectedProject(project)}
@@ -127,12 +141,20 @@ export default function ProjectsList() {
         onRename={() => {
           setIsShowFormProject(true);
         }}
-        onDelete={() => {
-          setProjectData((projects) => {
-            projects.filter((project) => project.id !== selectedProject?.id);
+        onDelete={async () => {
+          const deletedComponent = document.getElementById(
+            `project-${selectedProject?.id}`
+          );
 
-            return projects;
-          });
+          const deleteIndex = projectsData.findIndex(
+            (project) => project.project_name === selectedProject?.project_name
+          );
+
+          projectsData.splice(deleteIndex, 1);
+
+          await animate(deletedComponent!, { opacity: 0 }, { duration: 0.3 });
+          setProjectData([...projectsData]);
+          setSelectedProject(null);
         }}
       />
     </FlexBox>

@@ -16,12 +16,11 @@ type Props = {
 };
 
 export default function ProjectForm({
-  withButton,
   defaultValues,
   isForceShowForm,
   onCloseForm,
   onSubmitForm,
-}: Props) {
+}: Readonly<Props>) {
   const [isShowFormProject, setIsShowFormProject] = useState(
     isForceShowForm ?? false
   );
@@ -43,9 +42,9 @@ export default function ProjectForm({
     trigger("project_name");
   };
 
-  const onValid: SubmitHandler<Project> = (event) => {
+  const onValid: SubmitHandler<Project> = (value) => {
     onSubmitForm?.();
-    handleSubmitProject(event);
+    handleSubmitProject(value);
     setIsShowFormProject(false);
   };
 
@@ -58,14 +57,14 @@ export default function ProjectForm({
   }, [isShowFormProject]);
 
   return (
-    <Box mt={isForceShowForm ? 0 : theme.spacing.m} width={"100%"}>
+    <Box mt={theme.spacing.m} width={"100%"}>
       <form onSubmit={validateSubmit(onValid)}>
         {isShowFormProject && (
           <FlexBox
             opacity={0}
             ref={scope}
             alignItems={"center"}
-            mb={isForceShowForm ? 0 : theme.spacing.xm}
+            mb={theme.spacing.xm}
           >
             <Controller
               name="project_name"
@@ -73,23 +72,15 @@ export default function ProjectForm({
               rules={{ required: true }}
               render={({ field }) => <TextField width={"100%"} {...field} />}
             />
-            {!isEditting && (
-              <StyledButton
-                type="button"
-                onClick={() => {
-                  setIsShowFormProject(false);
-                  onCloseForm?.();
-                }}
-              >
-                <UilTimes />
-              </StyledButton>
-            )}
           </FlexBox>
         )}
 
-        <FlexBox alignItems={"center"} justifyContent={"space-between"}>
+        <FlexBox
+          mt={theme.spacing.m}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
           <StyledButton
-            mt={isEditting ? theme.spacing.m : theme.spacing.l}
             gap={theme.spacing.m}
             type={isShowFormProject ? "submit" : "button"}
             onClick={handleClickButton}
@@ -103,9 +94,8 @@ export default function ProjectForm({
                 : "New Project"}
             </Text>
           </StyledButton>
-          {isEditting && (
+          {isShowFormProject && (
             <StyledButton
-              mt={theme.spacing.m}
               gap={theme.spacing.m}
               type="button"
               onClick={() => {

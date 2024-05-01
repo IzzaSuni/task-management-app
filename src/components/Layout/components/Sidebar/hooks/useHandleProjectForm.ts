@@ -1,6 +1,6 @@
 import { ROUTE } from "@/constant/routes";
 import { KEY_STORAGE } from "@/constant/storageKey";
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -11,8 +11,6 @@ export type Project = {
   project_name: string;
 };
 
-export type HandleProjectType = "create" | "edit" | false;
-
 export const projectsAtom = atomWithStorage<Project[]>(
   KEY_STORAGE.PROJECTS_DATA,
   [],
@@ -20,7 +18,7 @@ export const projectsAtom = atomWithStorage<Project[]>(
 );
 
 export default function useHandleProjectForm(props?: Project) {
-  const setProjects = useSetAtom(projectsAtom);
+  const [project, setProjects] = useAtom(projectsAtom);
   const navigate = useNavigate();
 
   const {
@@ -32,7 +30,24 @@ export default function useHandleProjectForm(props?: Project) {
     defaultValues: { project_name: props?.project_name },
   });
 
+  const handleDuplicatedProjectName = (value: Project) => {
+    const isDuplicated = !!project?.find(
+      (project) => project?.project_name === value.project_name
+    )?.id;
+
+    return { isDuplicated };
+  };
+
   const handleSubmitProject: SubmitHandler<Project> = (value) => {
+    const { isDuplicated } = handleDuplicatedProjectName(value);
+
+    if (isDuplicated) {
+      reset();
+      return navigate(
+        generatePath(ROUTE, { project_name: value?.project_name })
+      );
+    }
+
     if (props?.project_name) {
       return setProjects((projects) => {
         const projectIndex = projects.findIndex(

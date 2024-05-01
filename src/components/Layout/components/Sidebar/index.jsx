@@ -45,7 +45,7 @@ export default function Sidebar() {
       </FlexBox>
 
       <ProjectsList />
-      <ProjectForm withButton />
+      <ProjectForm />
     </Box>
   );
 }
