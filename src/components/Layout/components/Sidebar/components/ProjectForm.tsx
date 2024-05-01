@@ -1,4 +1,4 @@
-import { Box, FlexBox, StyledButton, Text, TextField } from "@/components/core";
+import { Box, FlexBox, Button, Text, TextField } from "@/components/core";
 import { UilCheck, UilPlus, UilTimes } from "@iconscout/react-unicons";
 import { Controller, SubmitHandler } from "react-hook-form";
 
@@ -30,8 +30,6 @@ export default function ProjectForm({
 
   const { control, handleSubmitProject, trigger, validateSubmit } =
     useHandleProjectForm(defaultValues);
-
-  const isEditting = !!defaultValues?.project_name;
 
   const ButtonIcon = isShowFormProject ? UilCheck : UilPlus;
 
@@ -80,7 +78,7 @@ export default function ProjectForm({
           alignItems={"center"}
           justifyContent={"space-between"}
         >
-          <StyledButton
+          <Button
             gap={theme.spacing.m}
             type={isShowFormProject ? "submit" : "button"}
             onClick={handleClickButton}
@@ -93,9 +91,9 @@ export default function ProjectForm({
                   : "Add"
                 : "New Project"}
             </Text>
-          </StyledButton>
+          </Button>
           {isShowFormProject && (
-            <StyledButton
+            <Button
               gap={theme.spacing.m}
               type="button"
               onClick={() => {
@@ -105,7 +103,7 @@ export default function ProjectForm({
             >
               <UilTimes />
               <Text fontSize={theme.size.m}>Cancel</Text>
-            </StyledButton>
+            </Button>
           )}
         </FlexBox>
       </form>

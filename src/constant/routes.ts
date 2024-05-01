@@ -1,1 +1,1 @@
-export const ROUTE = "/:project_name?";
+export const ROUTE = "/:project_id?";

@@ -2,7 +2,7 @@ import {
   Box,
   EllipsisContainer,
   FlexBox,
-  StyledButton,
+  Button,
   Text,
 } from "@/components/core";
 import {
@@ -43,7 +43,7 @@ function EditProjectTooltip({
     >
       <Box display={"grid"} gap={theme.spacing.xm}>
         <Container flexDirection={"column"} gap={2}>
-          <StyledButton
+          <Button
             py={theme.spacing.s}
             px={theme.spacing.m}
             justifyContent={"space-between"}
@@ -52,11 +52,11 @@ function EditProjectTooltip({
           >
             <Text>Rename</Text>
             <UilEdit size={theme.size.m} />
-          </StyledButton>
+          </Button>
         </Container>
 
         <Container flexDirection={"column"} gap={2}>
-          <StyledButton
+          <Button
             py={theme.spacing.s}
             px={theme.spacing.m}
             justifyContent={"space-between"}
@@ -66,7 +66,7 @@ function EditProjectTooltip({
           >
             <Text>Delete Project</Text>
             <UilTrash size={theme.size.m} />
-          </StyledButton>
+          </Button>
         </Container>
       </Box>
     </Tooltip>
@@ -80,15 +80,13 @@ export default function ProjectsList() {
   const [projectsData, setProjectData] = useAtom(projectsAtom);
   const [, animate] = useAnimate();
   const theme = useTheme();
-  const params = useParams<{ project_name: string }>();
+  const params = useParams<{ project_id: string }>();
   const navigate = useNavigate();
 
   const resetSelectedProject = () => {
     setSelectedProject(null);
     setIsShowFormProject(false);
   };
-
-  console.log(projectsData, selectedProject?.id, isShowFormProject);
 
   return (
     <FlexBox flexDirection={"column"} mb={theme.spacing.s}>
@@ -97,7 +95,7 @@ export default function ProjectsList() {
           key={project.id}
           padding={theme.spacing.m}
           width={"100%"}
-          isActive={params?.project_name === project.project_name}
+          isActive={params?.project_id === project.id}
         >
           {selectedProject?.id === project?.id && isShowFormProject ? (
             <ProjectForm
@@ -119,20 +117,20 @@ export default function ProjectsList() {
                 alignItems={"center"}
                 gap={theme.spacing.s}
                 onClick={(e) => {
-                  navigate(`/${project?.project_name}`);
+                  navigate(`/${project?.id}`);
                   resetSelectedProject();
                 }}
               >
                 <UilSuitcase size={theme.size.m} />
-                <Text fontSize={theme.size.s}>{project?.project_name}a</Text>
+                <Text fontSize={theme.size.s}>{project?.project_name}</Text>
               </EllipsisContainer>
-              <StyledButton
+              <Button
                 onClick={() => setSelectedProject(project)}
                 alignItems={"center"}
                 data-tooltip-id="edit-project"
               >
                 <UilDiceTwo size={theme.size.m} />
-              </StyledButton>
+              </Button>
             </FlexBox>
           )}
         </Container>

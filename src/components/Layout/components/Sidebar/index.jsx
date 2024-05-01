@@ -1,4 +1,4 @@
-import { Box, FlexBox, Img, StyledButton, Text } from "@components/core";
+import { Box, FlexBox, Img, Button, Text } from "@components/core";
 import { useTheme } from "styled-components";
 import VTaskIcon from "@assets/v-task-logo.svg";
 import ProjectForm from "./components/ProjectForm";
@@ -24,7 +24,7 @@ export default function Sidebar() {
       position={"absolute"}
       ref={containerRef}
     >
-      <StyledButton
+      <Button
         mb={theme.spacing.l}
         alignItems={"center"}
         gap={theme.spacing.l}
@@ -34,14 +34,14 @@ export default function Sidebar() {
         <Text fontWeight={700} fontSize={theme.size.xm}>
           V-Task Manager
         </Text>
-      </StyledButton>
+      </Button>
       <FlexBox justifyContent={"space-between"}>
         <Text fontWeight={600} mb={theme.spacing.xm}>
           Project List
         </Text>
-        <StyledButton position={"relative"} onClick={() => handleShowSidebar()}>
+        <Button position={"relative"} onClick={() => handleShowSidebar()}>
           <UilHorizontalAlignLeft size={theme.size.xm} />
-        </StyledButton>
+        </Button>
       </FlexBox>
 
       <ProjectsList />

@@ -7,6 +7,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  transition: background 0.3s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
 body {
   margin: 0;
 }

@@ -7,12 +7,22 @@ import { useAtomValue } from "jotai";
 import { SidebarShowAtom } from "./components/Sidebar/hooks/useAnimateSidebar";
 import { Container } from "./index.styled";
 import { useParams } from "react-router-dom";
+import { projectsAtom } from "./components/Sidebar/hooks/useHandleProjectForm";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 export default function Layout({ children }: { children?: ReactNode }) {
   const isShowSidebar = useAtomValue(SidebarShowAtom);
   const theme = useTheme();
 
-  const params = useParams<{ project_name: string }>();
+  const params = useParams<{ project_id: string }>();
+  const projects = useAtomValue(projectsAtom);
+
+  const selectedProject = projects.find(
+    (project) => project.id == params?.project_id
+  );
 
   return (
     <Container background={theme.colors.background} position={"relative"}>
@@ -32,8 +42,13 @@ export default function Layout({ children }: { children?: ReactNode }) {
           mb={theme.spacing.l}
         >
           <Text fontSize={theme.size.xxxl} fontWeight={800}>
-            {params?.project_name}
+            {selectedProject?.project_name}
           </Text>
+          {params?.project_id && (
+            <Text fontSize={theme.size.s}>
+              Created {dayjs(selectedProject?.created_at).fromNow()}
+            </Text>
+          )}
           {children}
         </Box>
       </FlexBox>

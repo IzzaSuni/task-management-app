@@ -14,6 +14,8 @@ import {
   linkDialogPlugin,
   imagePlugin,
   ListsToggle,
+  tablePlugin,
+  InsertTable,
 } from "@mdxeditor/editor";
 import { FlexBox } from "../core";
 import { useTheme } from "styled-components";
@@ -36,6 +38,7 @@ export default function MDEditor({
           quotePlugin(),
           thematicBreakPlugin(),
           markdownShortcutPlugin(),
+          tablePlugin(),
           toolbarPlugin({
             toolbarContents: () => (
               <FlexBox
@@ -46,6 +49,7 @@ export default function MDEditor({
                 <BoldItalicUnderlineToggles />
                 <BlockTypeSelect />
                 <ListsToggle />
+                <InsertTable />
               </FlexBox>
             ),
           }),

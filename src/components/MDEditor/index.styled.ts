@@ -13,8 +13,9 @@ export const MDXEditor = styled(MDXEditorBase)`
   }
 
   svg {
-    height: 18px;
-    width: 18px;
+    height: 24px;
+    width: 24px;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

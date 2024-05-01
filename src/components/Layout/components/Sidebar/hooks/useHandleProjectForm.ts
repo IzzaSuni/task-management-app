@@ -1,14 +1,20 @@
 import { ROUTE } from "@/constant/routes";
 import { KEY_STORAGE } from "@/constant/storageKey";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
-
+import { v4 as uuidv4 } from "uuid";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { generatePath, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import {
+  TaskStatuses,
+  taskAtom,
+} from "@/pages/task-management/components/TaskBoard";
 
 export type Project = {
-  id?: number | string;
+  id?: string;
   project_name: string;
+  created_at?: string;
 };
 
 export const projectsAtom = atomWithStorage<Project[]>(
@@ -19,6 +25,7 @@ export const projectsAtom = atomWithStorage<Project[]>(
 
 export default function useHandleProjectForm(props?: Project) {
   const [project, setProjects] = useAtom(projectsAtom);
+  const setTasks = useSetAtom(taskAtom);
   const navigate = useNavigate();
 
   const {
@@ -31,20 +38,24 @@ export default function useHandleProjectForm(props?: Project) {
   });
 
   const handleDuplicatedProjectName = (value: Project) => {
-    const isDuplicated = !!project?.find(
+    const duplicateProject = project?.find(
       (project) => project?.project_name === value.project_name
-    )?.id;
+    );
 
-    return { isDuplicated };
+    return { isDuplicated: !!duplicateProject, duplicateProject };
   };
 
   const handleSubmitProject: SubmitHandler<Project> = (value) => {
-    const { isDuplicated } = handleDuplicatedProjectName(value);
+    const { isDuplicated, duplicateProject } =
+      handleDuplicatedProjectName(value);
 
-    if (isDuplicated) {
+    const project_id = uuidv4();
+
+    if (isDuplicated && duplicateProject?.id) {
       reset();
+
       return navigate(
-        generatePath(ROUTE, { project_name: value?.project_name })
+        generatePath(ROUTE, { project_id: duplicateProject?.id })
       );
     }
 
@@ -56,6 +67,7 @@ export default function useHandleProjectForm(props?: Project) {
 
         if (projectIndex >= 0) {
           projects[projectIndex] = {
+            ...projects[projectIndex],
             id: props.id,
             project_name: value.project_name,
           };
@@ -67,10 +79,38 @@ export default function useHandleProjectForm(props?: Project) {
 
     setProjects((projects) => [
       ...projects,
-      { ...value, id: projects.length ? projects.length + 1 : 1 },
+      {
+        ...value,
+        id: project_id,
+        created_at: dayjs().format("DD MMMM YYYY, hh:mm a"),
+      },
     ]);
 
-    navigate(generatePath(ROUTE, { project_name: value?.project_name }));
+    setTasks((task) => {
+      const newData = {
+        id: uuidv4(),
+        project_id: project_id,
+        data: [
+          {
+            id: uuidv4(),
+            title: "",
+            due_date: "",
+            status: {
+              value: TaskStatuses["not-started"],
+              label: "Not started",
+            },
+          },
+        ],
+      };
+
+      if (!task?.length) {
+        return [newData];
+      }
+
+      return [...task, newData];
+    });
+
+    navigate(generatePath(ROUTE, { project_id }));
     reset();
   };
 

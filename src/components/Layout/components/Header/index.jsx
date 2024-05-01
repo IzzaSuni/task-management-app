@@ -1,4 +1,4 @@
-import { FlexBox, StyledButton, Text } from "@/components/core";
+import { FlexBox, Button, Text } from "@/components/core";
 import useSelectTheme, { ThemeSetting } from "@/hooks/useSelectTheme";
 import { UilMoon, UilSun } from "@iconscout/react-unicons";
 import { useTheme } from "styled-components";
@@ -18,7 +18,7 @@ export default function Header() {
     >
       <FlexBox alignItems={"center"} gap={theme.spacing.s}>
         <Text fontSize={theme.size.s}>Apperance</Text>
-        <StyledButton
+        <Button
           onClick={() =>
             setThemeSetting((themeSetting) =>
               themeSetting === ThemeSetting.dark
@@ -28,7 +28,7 @@ export default function Header() {
           }
         >
           <AppereanceLogo />
-        </StyledButton>
+        </Button>
       </FlexBox>
     </FlexBox>
   );

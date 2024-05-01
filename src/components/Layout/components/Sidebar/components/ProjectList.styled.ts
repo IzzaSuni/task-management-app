@@ -1,7 +1,7 @@
-import { FlexBox } from "@/components/core";
+import { Button, FlexBox } from "@/components/core";
 import styled from "styled-components";
 
-export const Container = styled(FlexBox)<{ isActive?: boolean }>`
+export const Container = styled(Button)<{ isActive?: boolean }>`
   border-radius: 8px;
 
   background: ${({ theme, isActive }) =>

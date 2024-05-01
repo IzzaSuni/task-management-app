@@ -6,20 +6,20 @@ import { generatePath, useNavigate, useParams } from "react-router-dom";
 
 export default function useHandleRoute() {
   const projects = useAtomValue(projectsAtom);
-  const params = useParams<{ project_name: string }>();
+  const params = useParams<{ project_id: string }>();
   const navigate = useNavigate();
 
   const isProjectExist = !!projects?.find(
-    (project) => project?.project_name == params?.project_name
+    (project) => project?.id == params?.project_id
   )?.id;
 
-  const isOpeningProject = !!params?.project_name;
+  const isOpeningProject = !!params?.project_id;
 
   useEffect(() => {
     if (isProjectExist) return;
 
     navigate(generatePath(ROUTE));
-  }, [params?.project_name, isProjectExist]);
+  }, [params?.project_id, isProjectExist]);
 
   return { isOpeningProject };
 }

@@ -79,6 +79,22 @@ export const TextField = styled(element("input"))`
     outline: none;
   }
 `;
+
+export const DatePicker = styled(element("input")).attrs(() => ({
+  type: "date",
+}))`
+  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => theme.colors.background};
+  border: none;
+
+  img {
+    background: ${({ theme }) => theme.colors.background};
+  }
+  svg {
+    color: ${({ theme }) => theme.colors.text};
+  }
+`;
+
 export const Img = styled(element("img"))``;
 export const Box = styled(element("div"))`
   box-sizing: border-box;
@@ -104,7 +120,7 @@ export const Text = styled(element("p"))`
   color: ${({ theme, color }) => color ?? theme.colors.text};
 `;
 
-export const StyledButton = styled(element("button"))<StyledSystemProps>`
+export const Button = styled(element("button"))<StyledSystemProps>`
   height: fit-content;
   background: ${({ background }) => background ?? "transparent"};
   display: flex;
