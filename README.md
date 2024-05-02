@@ -32,3 +32,7 @@ V-Task using localstorage you can using this app in offline mode simply by insta
    To make the app more smooth with animation
 5. jotai\
    The lightweight and easy-to-use state mangement.
+6. styled-components\
+   css-in-js to styling react components
+7. styled-system\
+   to help ease of use of styled-components
