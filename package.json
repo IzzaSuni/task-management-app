@@ -17,6 +17,7 @@
     "@types/react-select": "^5.0.1",
     "@types/styled-system": "^5.1.22",
     "@types/uuid": "^9.0.8",
+    "@vercel/analytics": "^1.2.2",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.1.7",
     "jotai": "^2.8.0",

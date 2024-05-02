@@ -6,13 +6,16 @@ import { ThemeProvider } from "styled-components";
 import useSelectTheme from "./hooks/useSelectTheme";
 import { GlobalStyle, Wrapper } from "./RouterApp.styled";
 import "@mdxeditor/editor/style.css";
-import Root from "./pages";
+import { Analytics } from "@vercel/analytics/react";
+
 import { FlexBox, Text } from "./components/core";
+
+const RootComponent = lazy(async () => await import("./pages"));
 
 const router = createBrowserRouter([
   {
     path: ROUTE,
-    element: <Root />,
+    element: <RootComponent />,
   },
 ]);
 
@@ -23,11 +26,16 @@ export default function RouterApp() {
     <ThemeProvider theme={theme}>
       <Suspense
         fallback={
-          <FlexBox justifyContent={"center"} alignItems={"center"}>
-            <Text fontSize={theme.size.l}>loading</Text>
+          <FlexBox
+            justifyContent={"center"}
+            alignItems={"center"}
+            height={"100vh"}
+          >
+            <Text fontSize={theme.size.xm}>loading...</Text>
           </FlexBox>
         }
       >
+        <Analytics />
         <Wrapper>
           <GlobalStyle />
           <RouterProvider router={router} />
